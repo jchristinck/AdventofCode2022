@@ -1,30 +1,16 @@
-import csv
-
-def read_as_text(filename="input.txt"):
-    f = open(filename, "r")
-    r = csv.reader(f)
-    temp_array = []
-    for row in r:
-        temp_array.append(row[0])
-    return temp_array
-
-def read_as_lols(filename="input.txt"):
-    """ reads csv delimited file using comma as delimiter, returns list (rows) of lists (columns)"""
-    f = open(filename, "r")
-    r = csv.reader(f, delimiter=',')
-    temp_array = []
-    for i in r:
-        temp_array.append(i)
-    return temp_array
-
-def read_as_lols_replace_chars(filename="input.txt", replaced_str=' -> ', new_str=','):
-    """ reads file and replaces ' -> ' with ',' in each line, than appends line to list of lists"""
-    with open(filename, "r") as f:
-        temp_array = f.read().splitlines()  # list of lines containing a string
-    for idx in range(len(temp_array)):
-        temp_array[idx] = list(map(int, temp_array[idx].replace(replaced_str, new_str).split(new_str)))  # list of [x1, y1, x2, y2]'s
-    return temp_array
-
+import read_fcns as f
 
 if __name__ == "__main__":
-    pass
+    input = f.read_as_text()
+    elves = []
+    i = 0
+    for j, val in enumerate(input):
+        if val:
+            input[j] = int(val)
+        else:
+            input[j] = 0
+            elves.append(sum(input[i:j]))
+            i = j
+    elves.append(sum(input[i:]))
+    print(max(elves))
+    print(sum(sorted(elves)[-3:]))
