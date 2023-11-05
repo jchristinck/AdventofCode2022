@@ -3,3 +3,8 @@
 *.txt
 *.pyc
 _archived
+.idea/
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
